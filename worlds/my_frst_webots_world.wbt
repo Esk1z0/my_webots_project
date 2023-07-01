@@ -9,8 +9,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/project
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.29417875646459535 0.040800243323538495 -0.9548791543382252 2.656324362763929
-  position 15.621589985395667 7.7096250953225995 10.661526149579554
+  orientation 0.16352002462099224 0.04857243037347119 -0.9853435545816314 2.214100253887063
+  position 4.164893945096109 7.002184135526627 3.4991272239281352
 }
 TexturedBackground {
 }
@@ -33,6 +33,8 @@ Mavic2Pro {
   translation 0 0 0.18
   controller "xyz_controller"
   bodySlot [
+    InertialUnit {
+    }
     Gyro {
     }
   ]

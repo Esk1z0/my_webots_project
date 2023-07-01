@@ -3,7 +3,7 @@
   <component name="NewModuleRootManager">
     <content url="file://$USER_HOME$/AppData/Local/Programs/Webots/lib/controller/python" />
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="webots_env" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
