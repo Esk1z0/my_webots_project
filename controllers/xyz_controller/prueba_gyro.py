@@ -2,10 +2,10 @@ from controller import Robot
 def prueba():
     robot = Robot()
 
-    gyro = robot.getGyro("gyro")
-    gyro.enable(10)
+    imu = robot.getInertialUnit("inertial unit")
+    imu.enable(10)
 
     while robot.step(10) != -1:
-        gyro_values = gyro.getValues()
-        print("Gyro values: ", gyro_values)
+        imu_values = imu.getQuaternion()
+        print("Gyro values: ", imu_values, type(imu_values))
 

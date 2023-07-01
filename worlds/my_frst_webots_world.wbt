@@ -10,7 +10,7 @@ WorldInfo {
 }
 Viewpoint {
   orientation 0.16352002462099224 0.04857243037347119 -0.9853435545816314 2.214100253887063
-  position 4.164893945096109 7.002184135526627 3.4991272239281352
+  position 3.9241365877354895 6.666941444666571 3.370924393089124
 }
 TexturedBackground {
 }
@@ -34,8 +34,6 @@ Mavic2Pro {
   controller "xyz_controller"
   bodySlot [
     InertialUnit {
-    }
-    Gyro {
     }
   ]
 }
