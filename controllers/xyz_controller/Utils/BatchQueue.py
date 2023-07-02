@@ -1,20 +1,22 @@
-import IBatch
+from .IBatch import IBatch
 from queue import Queue
 from threading import Thread
 from time import sleep
 
 
-class BatchQueue(IBatch, Thread):
+class BatchQueue(Thread, IBatch):
 
-    """This class is an interface where info is enqueue and dequeue to pass info between the components.
-
-        The idea is that it saves the last batch if the receiver doesn't dequeued yet, while deleting the previous ones
+    """This class is a queue where it saves the last batch if the receiver doesn't dequeued yet, while deleting the previous ones
         after each time interval to keep the latest info for the receiver"""
 
     def __int__(self, size: int, interval: int):
-        super().__init__()
+        super().__init__(self, target=self.run())
         self.__queue = Queue(size)
         self.__interval = interval
+    def __init__(self):
+        self.__queue = Queue(1)
+        self.__interval = 0
+        super().__init__(self, target=self.run())
 
     def run(self):
         while True:
