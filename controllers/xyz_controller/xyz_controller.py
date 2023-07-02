@@ -1,5 +1,6 @@
-import prueba_gyro
-import imu_data_sample
+from controllers.xyz_controller.Scratch import prueba_gyro
+
+
 def main():
     prueba_gyro.prueba()
 
