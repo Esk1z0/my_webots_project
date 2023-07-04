@@ -6,7 +6,7 @@ class MyTestCase(unittest.TestCase):
     def test_something(self):
         self.assertEqual(True, True)  # add assertion
     def test_concurrency(self):
-        queue = BatchQueue()
+        queue = BatchQueue(2, 0.1)
         queue.start()
 
         queue.enqueue(1)

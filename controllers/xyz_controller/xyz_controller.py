@@ -1,8 +1,8 @@
-from controllers.xyz_controller.scratch import prueba_gyro
-
+from scratch.prueba_gyro import prueba
 
 def main():
-    prueba_gyro.prueba()
+    prueba()
+
 
 if __name__ == '__main__':
     main()

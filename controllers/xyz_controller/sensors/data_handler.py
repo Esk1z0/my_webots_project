@@ -1,31 +1,32 @@
-from controller import Camera
 from controllers.xyz_controller.utils.ibatch import IBatch
 from controllers.xyz_controller.processes.iprocess import IProcess
 from threading import Thread, Event
 
 
-class Camera(Thread):
-    def __init__(self, camera: Camera, batch: IBatch, process: IProcess):
-        self.__camera = camera
+class DataHandler(Thread):
+    def __init__(self, device, batch: IBatch, process: IProcess):
+        self.__Device = device
         self.__batch = batch
         self.__process = process
-        self.__stop = Event
+        self.__stop = Event()
+        self.__thread = super().__init__()
 
-    def get_image(self):
-        return self.__camera.getImage()
+    def get_data(self):
+        pass
 
-    def pass_image(self, data):
+    def pass_data(self, data):
         self.__batch.enqueue(data)
 
     def run(self):
         while not self.__stop.is_set():
+            print("running still")
             try:
-                image = self.get_image()
+                data = self.get_data()
             except Exception as ex:
-                print("No image retrieve")
+                print("No data retrieve")
             else:
-                processed_image = self.process_data()
-                self.pass_image(processed_image)
+                processed_data = self.process_data(data)
+                self.pass_data(processed_data)
         print("stopping")
 
     def process_data(self, data):
