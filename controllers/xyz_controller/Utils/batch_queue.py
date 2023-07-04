@@ -1,8 +1,8 @@
 import threading
 
-from .IBatch import IBatch
+from .ibatch import IBatch
 from queue import Queue
-from threading import Thread
+from threading import Thread, Event
 from time import sleep
 
 
@@ -14,7 +14,7 @@ class BatchQueue(Thread, IBatch):
     def __int__(self, size: int, interval: int):
         self.__queue = Queue(size)
         self.__interval = interval
-        self.__stop = threading.Event()
+        self.__stop = Event()
         super().__init__(target=self.run())
         #self.start()
 

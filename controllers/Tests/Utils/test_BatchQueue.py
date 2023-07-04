@@ -1,5 +1,5 @@
 import unittest
-from controllers.xyz_controller.Utils.BatchQueue import BatchQueue
+from controllers.xyz_controller.utils.batch_queue import BatchQueue
 from time import sleep
 
 class MyTestCase(unittest.TestCase):

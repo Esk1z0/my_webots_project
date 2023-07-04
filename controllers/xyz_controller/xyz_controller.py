@@ -1,4 +1,4 @@
-from controllers.xyz_controller.Scratch import prueba_gyro
+from controllers.xyz_controller.scratch import prueba_gyro
 
 
 def main():
