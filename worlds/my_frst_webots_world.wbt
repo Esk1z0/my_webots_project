@@ -5,12 +5,13 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/floors/protos/UnevenTerrain.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/robots/dji/mavic/protos/Mavic2Pro.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/apartment_structure/protos/Wall.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/tables/protos/Table.proto"
 
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.16352002462099224 0.04857243037347119 -0.9853435545816314 2.214100253887063
-  position 3.9241365877354895 6.666941444666571 3.370924393089124
+  orientation -0.015748799969999883 -0.0009726471341739542 0.9998755068792601 3.2156946544826033
+  position 2.756616715221702 0.07676938469283429 0.9657426035550931
 }
 TexturedBackground {
 }
@@ -22,6 +23,8 @@ UnevenTerrain {
   flatCenter TRUE
   flatBounds TRUE
 }
+Table {
+}
 Wall {
   translation -1.6 0 0.07
 }
@@ -30,7 +33,7 @@ Wall {
   name "wall(1)"
 }
 Mavic2Pro {
-  translation 0 0 0.18
+  translation 0 0 0.9
   controller "xyz_controller"
   bodySlot [
     InertialUnit {
