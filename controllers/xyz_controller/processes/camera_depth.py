@@ -1,7 +1,7 @@
-from iprocess import IProcess
+from controllers.xyz_controller.processes.iprocess import IProcess
 from cv2 import cvtColor, rotate, StereoBM, ROTATE_90_CLOCKWISE, ROTATE_90_COUNTERCLOCKWISE, COLOR_BGR2GRAY
 from numpy import maximum
-
+import cv2 as cv
 
 class DepthRecognition(IProcess):
     """The data must come as a numpy array"""
@@ -11,10 +11,10 @@ class DepthRecognition(IProcess):
 
     def process_data(self, data: list):
         data = DepthRecognition.pair_func(data, DepthRecognition.grayscale) #first we pass it to grayscale
-        rotated_data = DepthRecognition.pair_func(data.copy(), DepthRecognition.rotate90counter()) #we rotate 90 degrees for vertical stereo
+        rotated_data = DepthRecognition.pair_func(data.copy(), DepthRecognition.rotate90counter) #we rotate 90 degrees for vertical stereo
 
-        image1 = DepthRecognition.pair_func(data, DepthRecognition.depth)
-        image2 = DepthRecognition.pair_func(rotated_data, DepthRecognition.depth)
+        image1 = DepthRecognition.depth(data[0], data[1])
+        image2 = DepthRecognition.depth(rotated_data[0], rotated_data[1])
         image2 = DepthRecognition.rotate90counter(image2)
 
         return DepthRecognition.mix(image1, image2)
@@ -36,11 +36,9 @@ class DepthRecognition(IProcess):
         return rotate(image, ROTATE_90_COUNTERCLOCKWISE)
 
     @staticmethod
-    def create_stereoBM(self):
-        stereo = StereoBM()
-        stereo.setNumDisparities(self.NUM_DISPARITIES)
-        stereo.setBlockSize(self.BLOCKSIZE)
-        return stereo
+    def create_stereoBM():
+        return cv.StereoBM.create(DepthRecognition.NUM_DISPARITIES, DepthRecognition.BLOCKSIZE)
+
 
     @staticmethod
     def depth(image1, image2):
