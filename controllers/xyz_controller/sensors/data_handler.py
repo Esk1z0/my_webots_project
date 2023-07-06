@@ -1,18 +1,20 @@
 from controllers.xyz_controller.utils.ibatch import IBatch
 from controllers.xyz_controller.processes.iprocess import IProcess
+from controllers.xyz_controller.sensors.data_gathering.idata_gather import IDataGather
 from threading import Thread, Event
 
 
 class DataHandler(Thread):
-    def __init__(self, device, batch: IBatch, process: IProcess):
-        self.__Device = device
+    def __init__(self, device, batch: IBatch, process: IProcess, data_gatherer: IDataGather):
+        self.__device = device
         self.__batch = batch
         self.__process = process
+        self.__data_gatherer = data_gatherer
         self.__stop = Event()
         self.__thread = super().__init__()
 
     def get_data(self):
-        pass
+        return self.__data_gatherer.get_data()
 
     def pass_data(self, data):
         self.__batch.enqueue(data)
