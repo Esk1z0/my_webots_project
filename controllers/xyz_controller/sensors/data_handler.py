@@ -1,6 +1,6 @@
-from controllers.xyz_controller.utils.ibatch import IBatch
-from controllers.xyz_controller.processes.iprocess import IProcess
-from controllers.xyz_controller.sensors.data_gathering.idata_gather import IDataGather
+from utils.ibatch import IBatch
+from processes.iprocess import IProcess
+from sensors.data_gathering.idata_gather import IDataGather
 from threading import Thread, Event
 
 

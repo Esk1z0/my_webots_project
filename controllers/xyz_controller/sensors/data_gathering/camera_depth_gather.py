@@ -1,7 +1,7 @@
-from controllers.xyz_controller.sensors.data_gathering.idata_gather import IDataGather
+from sensors.data_gathering.idata_gather import IDataGather
 from controller import Camera
 from time import sleep
-
+import numpy as np
 
 class CameraDepthGather(IDataGather):
 
@@ -9,7 +9,12 @@ class CameraDepthGather(IDataGather):
         self.__camera = device
 
     def get_data(self):
-        data = [self.__camera.getImage()]
-        sleep(0.1)
-        data.append(self.__camera.getImage())
+        data = [self.__get_image()]
+        sleep(0.01)
+        data.append(self.__get_image())
         return data
+
+    def __get_image(self):
+        image = self.__camera.getImage()
+        return np.frombuffer(image, np.uint8).reshape((self.__camera.getHeight(), self.__camera.getWidth(), 4))
+

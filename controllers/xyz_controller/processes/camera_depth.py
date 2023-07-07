@@ -1,5 +1,7 @@
-from controllers.xyz_controller.processes.iprocess import IProcess
-from cv2 import cvtColor, rotate, StereoBM, ROTATE_90_CLOCKWISE, ROTATE_90_COUNTERCLOCKWISE, COLOR_BGR2GRAY
+import numpy
+
+from processes.iprocess import IProcess
+from cv2 import cvtColor, rotate, StereoBM,convertScaleAbs, ROTATE_90_CLOCKWISE, ROTATE_90_COUNTERCLOCKWISE, COLOR_BGR2GRAY
 from numpy import maximum
 import cv2 as cv
 
@@ -9,7 +11,7 @@ class DepthRecognition(IProcess):
     NUM_DISPARITIES = 80
     BLOCKSIZE = 27
 
-    def process_data(self, data: list):
+    def process_data(self, data: list) -> numpy.ndarray:
         data = DepthRecognition.pair_func(data, DepthRecognition.grayscale) #first we pass it to grayscale
         rotated_data = DepthRecognition.pair_func(data.copy(), DepthRecognition.rotate90counter) #we rotate 90 degrees for vertical stereo
 
@@ -25,6 +27,7 @@ class DepthRecognition(IProcess):
 
     @staticmethod
     def grayscale(image):
+        image = convertScaleAbs(image)
         return cvtColor(image, COLOR_BGR2GRAY)
 
     @staticmethod
@@ -37,7 +40,7 @@ class DepthRecognition(IProcess):
 
     @staticmethod
     def create_stereoBM():
-        return cv.StereoBM.create(DepthRecognition.NUM_DISPARITIES, DepthRecognition.BLOCKSIZE)
+        return StereoBM.create(DepthRecognition.NUM_DISPARITIES, DepthRecognition.BLOCKSIZE)
 
 
     @staticmethod
