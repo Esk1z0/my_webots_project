@@ -8,8 +8,8 @@ import cv2 as cv
 class DepthRecognition(IProcess):
     """The data must come as a numpy array"""
 
-    NUM_DISPARITIES = 80
-    BLOCKSIZE = 27
+    NUM_DISPARITIES = 48#80
+    BLOCKSIZE = 89#27
 
     def process_data(self, data: list) -> numpy.ndarray:
         data = DepthRecognition.pair_func(data, DepthRecognition.grayscale) #first we pass it to grayscale

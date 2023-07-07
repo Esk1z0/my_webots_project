@@ -5,7 +5,7 @@ from processes.camera_depth import DepthRecognition
 
 from controller import Robot
 import cv2 as cv
-from time import sleep
+import numpy as np
 from queue import Queue
 
 def prueba():
@@ -16,7 +16,8 @@ def prueba():
 
     cv.startWindowThread()
     cv.namedWindow("preview")
-
+    cv.startWindowThread()
+    cv.namedWindow("camera")
 
     stereo = DepthRecognition()
     camera_gatherer = CameraDepthGather(camera)
@@ -31,6 +32,7 @@ def prueba():
         if(not queue.empty()):
             image = queue.get()
             cv.imshow("preview", image)
+            cv.imshow("camera", np.frombuffer(camera.getImage(), np.uint8).reshape((camera.getHeight(), camera.getWidth(), 4)))
             cv.waitKey(1)
         #sleep(0.1)
     cv.destroyAllWindows()
@@ -40,6 +42,9 @@ def process1(queue: Queue, event: threading.Event, stereo, camera_gatherer):
         event.wait()
         data = camera_gatherer.get_data()
         image = stereo.process_data(data)
-        color_image = cv.cvtColor(image.astype('uint8'), cv.COLOR_GRAY2BGR)
+
+        color_image = cv.cvtColor(image.astype('uint8'), cv.COLOR_GRAY2RGB)
+        color_image = cv.applyColorMap(color_image, cv.COLORMAP_JET)
+
         queue.put(color_image)
         event.clear()
