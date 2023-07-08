@@ -1,0 +1,88 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+left to right direction
+
+
+
+
+
+node "<<device>>\nPC"{
+    [Orders]
+}
+    [Orders] -up- ssh
+
+node "System"{
+
+    frame "Sensors"{
+        top to bottom direction
+        [OrdersPreprocessor]
+        [CameraDepthPreprocessor]
+        [CameraDepthPreprocessor]
+        [CameraRecognitionPreprocessor]
+        [IMUPreprocessor]
+        [SensorAdmin]
+
+        [CameraRecognitionPreprocessor] -up- ibatch
+        [CameraDepthPreprocessor] -up- ibatch
+        [IMUPreprocessor] -up- ibatch
+        [OrdersPreprocessor] -up- ibatch
+        [SensorAdmin] .down.> ibatch
+    }
+
+    [SensorAdmin] -up- ibatch_
+
+    frame "Decision"{
+        left to right direction
+        [DecisionAdmin]
+        [DecisionAdmin] ..> ibatch_
+        [DecisionModel] -right-o [DecisionAdmin]
+    }
+
+    [DecisionAdmin] -up- ibatch__
+    frame "Actuators"{
+        [ActuatorsAdmin]
+        [ActuatorsAdmin] .down.> ibatch__
+    }
+
+}
+
+
+
+
+node  "<<device>>\nMavic 2 PRO"{
+    [Camera]
+    [IMU]
+
+    [Camera] -up- Controller.Camera
+    [IMU] -up- Controller.InertialUnit
+
+}
+
+node  "<<device>>\nMavic 2 PRO"{
+    [RareLeftMotor]
+    [RareRightMotor]
+    [FrontLeftMotor]
+    [FrontRightMotor]
+
+    [RareLeftMotor] -up- Controller.RareLeftMotor
+    [RareRightMotor] -up- Controller.RareRightMotor
+    [FrontLeftMotor] -up- Controller.FrontLeftMotor
+    [FrontRightMotor] -up- Controller.FrontRightMotor
+
+    [ActuatorsAdmin] ..>   Controller.RareLeftMotor
+    [ActuatorsAdmin] ..>  Controller.RareRightMotor
+    [ActuatorsAdmin] ..>  Controller.FrontLeftMotor
+    [ActuatorsAdmin] ..>  Controller.FrontRightMotor
+}
+
+
+[CameraDepthPreprocessor] ..> Controller.Camera
+[CameraRecognitionPreprocessor] ..> Controller.Camera
+[IMUPreprocessor] ..> Controller.InertialUnit
+[OrdersPreprocessor] ..> ssh
+
+
+
+
+@enduml
