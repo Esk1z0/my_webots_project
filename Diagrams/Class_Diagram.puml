@@ -27,7 +27,17 @@ ibatch <-- datahandler
 idatagather <-- datahandler
 Event <-- datahandler
 Thread <|-- datahandler
-
+idatagather <|-- camerarecognitiongather
+iprocess <|-- objectrecognition
+idatagather <|-- imugather
+iprocess <|-- imuprocess
+idatagather <|-- textgather
+iprocess <|-- textprocess
+ibatch ..o sensoradmin
+ibatch ..o decisionadmin
+model --* decisionadmin
+model_preprocess --o decisionadmin
+iprocess <-- datahandler
 interface iprocess{
     process_data(data)
 }
@@ -91,5 +101,87 @@ class datahandler{
     +run()
 }
 
+class camerarecognitiongather{
+    -__camera
+    +__init__(device)
+    +get_data()
+    -__get_image()
+    }
 
+class objectrecognition{
+    +process_data()
+    }
+
+class imugather{
+    -__inertial_unit
+    +__init__(device)
+    +get_data()
+}
+
+class imuprocess{
+    +process_data()
+}
+
+class textgather{
+    -__textgenerator
+    +__init__(device)
+    +get_data()
+}
+
+class textprocess{
+    +process_data()
+}
+
+class sensoradmin{
+    +run()
+    +create_batch()
+    +push_data()
+}
+
+class decisionadmin{
+    -__preprocess
+    -__model
+    -__in_batch
+    -__out_batch
+    +decide()
+    +get_data()
+    +push_data()
+}
+
+class model{
+    -cosas
+    +predict()
+}
+
+class model_preprocess{
+    +process_data()
+}
+
+class actuatoradmin{
+    -__list_actuators
+    +send
+}
+iprocess <|--model_preprocess
+iactuatorcontroller --o actuatoradmin
+iactuatorcontroller <|-- motorcontroller
+interface iactuatorcontroller{
+    +set_order()
+}
+
+class motorcontroller{
+    +order()
+}
+
+enum sensors{
+    +IMU
+    +DEPTH
+    +RECOGNITION
+    +TEXT
+}
+enum actuators{
+    +RARE_LEFT_MOTOR
+    +RARE_RIGHT_MOTOR
+    +FRONT_LEFT_MOTOR
+    +FRONT_RIGHT_MOTOR
+}
 @enduml
