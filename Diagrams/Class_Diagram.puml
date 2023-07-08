@@ -1,0 +1,95 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Thread
+class threading
+class queue
+class Event
+class cv2
+class numpy
+class time
+class controller
+
+Thread <|-- batchqueue
+threading <|-- Thread
+threading <-- batchqueue
+queue --* batchqueue
+threading <|-- Event
+Event --o batchqueue
+iprocess <|-- depthrecognition
+cv2 <-- depthrecognition
+numpy <-- depthrecognition
+idatagather <|-- cameradepthgather
+time <-- cameradepthgather
+controller <-- cameradepthgather
+ibatch <|-- batchqueue
+ibatch <-- datahandler
+idatagather <-- datahandler
+Event <-- datahandler
+Thread <|-- datahandler
+
+interface iprocess{
+    process_data(data)
+}
+
+class depthrecognition{
+    +NUM_DISPARITIES
+    +BLOCKSIZE
+    +process_data(data)
+    +pair_func(data, func)
+    +grayscale(image)
+    +rotate90(image)
+    +rotate90counter(image)
+    +create_stereoBM()
+    +depth(image1, image2)
+    +mix(image1, image2)
+}
+
+interface idatagather{
+    +__init__(device)
+    +get_data()
+}
+
+class cameradepthgather{
+    -__camera
+    +__init__(device)
+    +get_data()
+    -__get_image()
+}
+
+interface ibatch{
+    +interval()
+    +interval(value)
+    +dequeue()
+    +enqueue(item)
+}
+
+class batchqueue{
+    -__queue
+    -__interval
+    -__stop
+    +__init__(size=2, interval = 0.1)
+    +run()
+    +stop()
+    +interval()
+    +interval(value)
+    +dequeue()
+    +enqueue(item)
+    +qsize()
+}
+
+class datahandler{
+    -__batch
+    -__process
+    -__data_gatherer
+    -__stop
+    +__init__(batch, process, data_gatherer, )
+    +get_data()
+    +pass_data(data)
+    +process_data(data)
+    +stop()
+    +run()
+}
+
+
+@enduml

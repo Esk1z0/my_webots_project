@@ -5,8 +5,7 @@ from threading import Thread, Event
 
 
 class DataHandler(Thread):
-    def __init__(self, device, batch: IBatch, process: IProcess, data_gatherer: IDataGather):
-        self.__device = device
+    def __init__(self, batch: IBatch, process: IProcess, data_gatherer: IDataGather):
         self.__batch = batch
         self.__process = process
         self.__data_gatherer = data_gatherer

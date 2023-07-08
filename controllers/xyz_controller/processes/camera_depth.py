@@ -8,12 +8,12 @@ import cv2 as cv
 class DepthRecognition(IProcess):
     """The data must come as a numpy array"""
 
-    NUM_DISPARITIES = 48#80
+    NUM_DISPARITIES = 16#80
     BLOCKSIZE = 89#27
 
     def process_data(self, data: list) -> numpy.ndarray:
         data = DepthRecognition.pair_func(data, DepthRecognition.grayscale) #first we pass it to grayscale
-        rotated_data = DepthRecognition.pair_func(data.copy(), DepthRecognition.rotate90counter) #we rotate 90 degrees for vertical stereo
+        rotated_data = DepthRecognition.pair_func(data.copy(), DepthRecognition.rotate90) #we rotate 90 degrees for vertical stereo
 
         image1 = DepthRecognition.depth(data[0], data[1])
         image2 = DepthRecognition.depth(rotated_data[0], rotated_data[1])
