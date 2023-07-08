@@ -1,4 +1,6 @@
 # my_webots_project
 Just a casual ptoject for learning a little bit about robots
-Have a nice day
-![Class Diagram](Diagrams/Class_Diagram.puml)
+
+Have a nice day 
+
+![Class Diagram](https://github.com/Esk1z0/my_webots_project/blob/main/Diagrams/Class_Diagram.puml)
