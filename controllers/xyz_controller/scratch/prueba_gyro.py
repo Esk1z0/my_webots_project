@@ -7,5 +7,5 @@ def prueba():
 
     while robot.step(10) != -1:
         imu_values = imu.getQuaternion()
-        print("Gyro values: ", imu_values, type(imu_values))
+        print("Gyro values: ", imu_values, type(imu_values), imu_values[0], type(imu_values[0]))
 
