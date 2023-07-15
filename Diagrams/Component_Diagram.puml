@@ -21,12 +21,14 @@ node "System"{
         [CameraDepthPreprocessor]
         [CameraRecognitionPreprocessor]
         [IMUPreprocessor]
+        [DistancePreprocessor]
         [SensorAdmin]
 
         [CameraRecognitionPreprocessor] -up- ibatch
         [CameraDepthPreprocessor] -up- ibatch
         [IMUPreprocessor] -up- ibatch
         [OrdersPreprocessor] -up- ibatch
+        [DistancePreprocessor] -up- ibatch
         [SensorAdmin] .down.> ibatch
     }
 
@@ -53,7 +55,9 @@ node "System"{
 node  "<<device>>\nMavic 2 PRO"{
     [Camera]
     [IMU]
+    [Ultrasound]
 
+    [Ultrasound] -up- Controller.DistanceSensor
     [Camera] -up- Controller.Camera
     [IMU] -up- Controller.InertialUnit
 
@@ -80,6 +84,7 @@ node  "<<device>>\nMavic 2 PRO"{
 [CameraDepthPreprocessor] ..> Controller.Camera
 [CameraRecognitionPreprocessor] ..> Controller.Camera
 [IMUPreprocessor] ..> Controller.InertialUnit
+[DistancePreprocessor] ..> Controller.DistanceSensor
 [OrdersPreprocessor] ..> ssh
 
 

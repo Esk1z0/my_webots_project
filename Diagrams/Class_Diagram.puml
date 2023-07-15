@@ -38,6 +38,9 @@ ibatch ..o decisionadmin
 model --* decisionadmin
 model_preprocess --o decisionadmin
 iprocess <-- datahandler
+idatagather <|-- distancegather
+iprocess <|-- distanceprocess
+
 interface iprocess{
     process_data(data)
 }
@@ -172,13 +175,26 @@ class motorcontroller{
     +order()
 }
 
-enum sensors{
-    +IMU
-    +DEPTH
-    +RECOGNITION
+class distancegather{
+    -__distancesensor
+    +__init__(device)
+    +get_data()
+}
+
+class distanceprocess{
+    +process_data()
+}
+
+enum EInputs{
+    +IMUposition
+    +IMUAngularVel
+    +IMUAngularAccel
+    +DistanceSensor
+    +CameraDepth
+    +CameraRecognition
     +TEXT
 }
-enum actuators{
+enum EOutputs{
     +RARE_LEFT_MOTOR
     +RARE_RIGHT_MOTOR
     +FRONT_LEFT_MOTOR

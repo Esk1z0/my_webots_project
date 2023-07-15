@@ -37,7 +37,10 @@ Mavic2Pro {
   rotation 0.024574407091757844 0.010379684372448123 0.9996441170078564 -2.358308117454871
   controller "xyz_controller"
   bodySlot [
+    DistanceSensor {
+    }
     InertialUnit {
+      name "imu"
     }
   ]
 }
