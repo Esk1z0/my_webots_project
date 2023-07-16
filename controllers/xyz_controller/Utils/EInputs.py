@@ -10,3 +10,5 @@ class EInput(Enum):
     CameraRecognition = "CameraRecognition"
     TEXT = "TEXT"
 
+    TimeInterval = "TIMEINTERVAL"
+

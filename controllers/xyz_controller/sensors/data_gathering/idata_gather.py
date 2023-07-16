@@ -8,5 +8,5 @@ class IDataGather(ABC):
         pass
 
     @abstractmethod
-    def get_data(self):
+    def get_data(self) -> dict:
         pass
