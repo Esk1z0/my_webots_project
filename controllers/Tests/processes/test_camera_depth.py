@@ -1,5 +1,5 @@
 import unittest
-from controllers.xyz_controller.processes.camera_depth import DepthRecognition
+from controllers.xyz_controller.processes.camera_depth_process import DepthRecognition
 import cv2 as cv
 import matplotlib.pyplot as plt
 from timeit import timeit

@@ -1,7 +1,7 @@
 import threading
 
 from sensors.data_gathering.camera_depth_gather import CameraDepthGather
-from processes.camera_depth import DepthRecognition
+from processes.camera_depth_process import DepthRecognition
 
 from controller import Robot
 import cv2 as cv

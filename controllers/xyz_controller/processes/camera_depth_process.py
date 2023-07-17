@@ -1,9 +1,8 @@
 import numpy
-
+from utils.EInputs import EInput
 from processes.iprocess import IProcess
 from cv2 import cvtColor, rotate, StereoBM,convertScaleAbs, ROTATE_90_CLOCKWISE, ROTATE_90_COUNTERCLOCKWISE, COLOR_BGR2GRAY
 from numpy import maximum
-import cv2 as cv
 
 class DepthRecognition(IProcess):
     """The data must come as a numpy array"""
@@ -11,15 +10,20 @@ class DepthRecognition(IProcess):
     NUM_DISPARITIES = 16#80
     BLOCKSIZE = 89#27
 
-    def process_data(self, data: list) -> numpy.ndarray:
-        data = DepthRecognition.pair_func(data, DepthRecognition.grayscale) #first we pass it to grayscale
-        rotated_data = DepthRecognition.pair_func(data.copy(), DepthRecognition.rotate90) #we rotate 90 degrees for vertical stereo
+    def process_data(self, data: dict) -> numpy.ndarray:
+        data = data.get(EInput.CameraDepth, 0)
+        if data != 0:
+            data = DepthRecognition.pair_func(data, DepthRecognition.grayscale) #first we pass it to grayscale
+            rotated_data = DepthRecognition.pair_func(data.copy(), DepthRecognition.rotate90) #we rotate 90 degrees for vertical stereo
 
-        image1 = DepthRecognition.depth(data[0], data[1])
-        image2 = DepthRecognition.depth(rotated_data[0], rotated_data[1])
-        image2 = DepthRecognition.rotate90counter(image2)
+            image1 = DepthRecognition.depth(data[0], data[1])
+            image2 = DepthRecognition.depth(rotated_data[0], rotated_data[1])
+            image2 = DepthRecognition.rotate90counter(image2)
 
-        return DepthRecognition.mix(image1, image2)
+            data = DepthRecognition.mix(image1, image2)
+
+        return {EInput.CameraDepth : data}
+
 
     @staticmethod
     def pair_func(data, func):

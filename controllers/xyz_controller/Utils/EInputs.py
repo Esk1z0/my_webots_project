@@ -6,6 +6,7 @@ class EInput(Enum):
     IMUAngularVel = "IMUAngularVel"
     IMUAngularAccel = "IMUAngularAccel"
     DistanceSensor = "DistanceSensor"
+    DistanceDifferenceSensor = "DistanceDifferenceSensor"
     CameraDepth = "CameraDepth"
     CameraRecognition = "CameraRecognition"
     TEXT = "TEXT"
