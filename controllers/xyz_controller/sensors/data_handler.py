@@ -5,9 +5,9 @@ from threading import Thread, Event
 
 
 class DataHandler(Thread):
-    def __init__(self, batch: IBatch, process: IProcess, data_gatherer: IDataGather):
+    def __init__(self, batch: IBatch, processes : list, data_gatherer: IDataGather):
         self.__batch = batch
-        self.__process = process
+        self.__processes = processes
         self.__data_gatherer = data_gatherer
         self.__stop = Event()
         self.__thread = super().__init__()
@@ -26,12 +26,11 @@ class DataHandler(Thread):
             except Exception as ex:
                 print("No data retrieve")
             else:
-                processed_data = self.process_data(data)
-                self.pass_data(processed_data)
+                for process in self.__processes:
+                    processed_data = process.process_data(data)
+                    self.pass_data(processed_data)
         print("stopping")
 
-    def process_data(self, data):
-        return self.__process.process_data(data)
 
     def stop(self):
         self.__stop.set()
