@@ -18,5 +18,4 @@ class CameraDepthGather(IDataGather):
 
     def __get_image(self):
         image = self.__camera.getImage()
-        data = np.frombuffer(image, np.uint8).reshape((self.__camera.getHeight(), self.__camera.getWidth(), 4))
-        return data
+        return image
