@@ -18,7 +18,7 @@ class IMUProcess(IProcess):
             pos = IMUProcess.rotation_scaler(IMUProcess.get_pos(values, interval))
             ang_vel = IMUProcess.rotation_scaler(IMUProcess.get_ang_vel(values, interval))
             data[EInput.IMUPosition] = pos
-            data[EInput.IMUAngularVel] = pos
+            data[EInput.IMUAngularVel] = ang_vel
 
         return data
 

@@ -19,7 +19,7 @@ class DepthRecognition(IProcess):
         values = data.get(EDevices.Camera, 0)
         if values != 0:
             values = self.__process(values)
-        data[EInput.CameraDepth] = values
+            data[EInput.CameraDepth] = values
         return data
 
     def __process(self, values):
