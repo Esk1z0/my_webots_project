@@ -1,5 +1,6 @@
 import numpy
 from utils.EInputs import EInput
+from utils.EDevices import EDevices
 from processes.iprocess import IProcess
 from cv2 import cvtColor, rotate, StereoBM,convertScaleAbs, ROTATE_90_CLOCKWISE, ROTATE_90_COUNTERCLOCKWISE, COLOR_BGR2GRAY
 from numpy import maximum
@@ -15,20 +16,23 @@ class DepthRecognition(IProcess):
         self.__stereoBM = self.create_stereoBM()
 
     def process_data(self, data: dict) -> numpy.ndarray:
-        values = data.get(EInput.CameraDepth, 0)
+        values = data.get(EDevices.Camera, 0)
         if values != 0:
-            values = self.pair_func(values, self.__preprocess)
-            data = self.pair_func(values, self.grayscale) #first we pass it to grayscale
-            rotated_data = self.pair_func(data.copy(), self.rotate90) #we rotate 90 degrees for vertical stereo
+            values = self.__process(values)
+        data[EInput.CameraDepth] = values
+        return data
 
-            image1 = self.depth(data[0], data[1])
-            image2 = self.depth(rotated_data[0], rotated_data[1])
-            image2 = self.rotate90counter(image2)
+    def __process(self, values):
+        values = self.pair_func(values, self.__preprocess)
+        data = self.pair_func(values, self.grayscale)  # first we pass it to grayscale
+        rotated_data = self.pair_func(data.copy(), self.rotate90)  # we rotate 90 degrees for vertical stereo
 
-            data = self.mix(image1, image2)
+        image1 = self.depth(data[0], data[1])  # we calculate the difference in these pictures
+        image2 = self.depth(rotated_data[0], rotated_data[1])  # and with the rotated pictures
+        image2 = self.rotate90counter(image2)  # then we correct the rotated image
 
-        return {EInput.CameraDepth : data}
-
+        data = self.mix(image1, image2)  # and we mix the two images
+        return data
 
     def __preprocess(self, image):
         data = np.frombuffer(image, np.uint8).reshape((self.__camera.getHeight(), self.__camera.getWidth(), 4))

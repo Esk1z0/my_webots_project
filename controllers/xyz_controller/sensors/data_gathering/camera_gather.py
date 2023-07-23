@@ -1,10 +1,9 @@
 from sensors.data_gathering.idata_gather import IDataGather
-from utils.EInputs import EInput
 from controller import Camera
 from time import sleep
-import numpy as np
+from utils.EDevices import EDevices
 
-class CameraDepthGather(IDataGather):
+class CameraGather(IDataGather):
 
     TIME_INTERVAL = 0.01
     def __init__(self, device: Camera):
@@ -14,7 +13,7 @@ class CameraDepthGather(IDataGather):
         data = [self.__get_image()]
         sleep(self.TIME_INTERVAL)
         data.append(self.__get_image())
-        return {EInput.CameraDepth : data, EInput.TimeInterval : self.TIME_INTERVAL}
+        return {EDevices.Camera : data, EDevices.TimeInterval : self.TIME_INTERVAL}
 
     def __get_image(self):
         image = self.__camera.getImage()

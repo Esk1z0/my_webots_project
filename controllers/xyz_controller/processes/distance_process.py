@@ -1,18 +1,17 @@
 from processes.iprocess import IProcess
 from utils.EInputs import EInput
+from utils.EDevices import EDevices
 
 
 class DistanceProcess(IProcess):
 
     def process_data(self, data : dict):
-        values = data.get(EInput.DistanceSensor, 0)
-        interval = data.get(EInput.TimeInterval, 0)
-        pos = 0
-        diff = 0
-        if (values != 0) and (interval != 0):
-            pos = values[-1]
+        values = data.get(EDevices.DistanceSensor, 0)
+        data[EInput.DistanceSensor] = values
+        if values != 0:
             diff = self.__difference(values)
-        return {EInput.DistanceSensor : pos, EInput.DistanceDifferenceSensor : diff}
+            data[EInput.DistanceDifferenceSensor] = diff
+        return data
 
     def __difference(self, data, interval):
         return (data[-1] - data[0])/ interval

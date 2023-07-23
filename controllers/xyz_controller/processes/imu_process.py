@@ -2,6 +2,7 @@ from processes.iprocess import IProcess
 from utils.EInputs import EInput
 import numpy as np
 from scipy.spatial.transform import Rotation
+from utils.EDevices import EDevices
 
 class IMUProcess(IProcess):
 
@@ -10,22 +11,16 @@ class IMUProcess(IProcess):
 
 
     def process_data(self, data):
-        values = data.get(EInput.IMUPosition, 0)
-        interval = data.get(EInput.TimeInterval, 0)
+        values = data.get(EDevices.IMU, 0)
 
-        pos = 0
-        ang_vel = 0
-        #ang_accel = 0
-
-        if (values != 0) and (interval != 0):
+        if values != 0:
+            interval = data.get(EDevices.TimeInterval)
             pos = IMUProcess.rotation_scaler(IMUProcess.get_pos(values, interval))
             ang_vel = IMUProcess.rotation_scaler(IMUProcess.get_ang_vel(values, interval))
-            #ang_accel = IMUProcess.rotation_scaler(IMUProcess.get_ang_accel(values, interval))
+            data[EInput.IMUPosition] = pos
+            data[EInput.IMUAngularVel] = pos
 
-
-        return {EInput.IMUPosition : pos,
-                EInput.IMUAngularVel : ang_vel}
-            #,EInput.IMUAngularAccel : ang_accel}
+        return data
 
     @staticmethod
     def get_pos(values, interval):

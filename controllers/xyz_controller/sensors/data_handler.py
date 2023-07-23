@@ -27,8 +27,8 @@ class DataHandler(Thread):
                 print("No data retrieve")
             else:
                 for process in self.__processes:
-                    processed_data = process.process_data(data)
-                    self.pass_data(processed_data)
+                    data = process.process_data(data)
+                self.pass_data(data)
         print("stopping")
 
 

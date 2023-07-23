@@ -1,7 +1,7 @@
 from sensors.data_gathering.idata_gather import IDataGather
 from controller import DistanceSensor
 from time import sleep
-from utils.EInputs import EInput
+from utils.EDevices import EDevices
 
 
 class DistanceGather(IDataGather):
@@ -15,7 +15,7 @@ class DistanceGather(IDataGather):
         data = self.__get_data()
         sleep(self.TIMEINTERVAL)
         data.append(self.__get_data())
-        return {EInput.DistanceSensor : data, EInput.TimeInterval : data}
+        return {EDevices.DistanceSensor : data, EDevices.TimeInterval : data}
 
     def __get_data(self):
         return self.__device.getValue()
