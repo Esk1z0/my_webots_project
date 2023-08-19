@@ -6,16 +6,13 @@ from utils.EDevices import EDevices
 
 class DistanceGather(IDataGather):
 
-    TIMEINTERVAL = 0.01
 
     def __init__(self, device: DistanceSensor):
         self.__device = device
 
     def get_data(self):
         data = self.__get_data()
-        sleep(self.TIMEINTERVAL)
-        data.append(self.__get_data())
-        return {EDevices.DistanceSensor : data, EDevices.TimeInterval : data}
+        return {EDevices.DistanceSenso: data}
 
     def __get_data(self):
         return self.__device.getValue()

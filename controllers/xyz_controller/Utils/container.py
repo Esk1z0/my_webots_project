@@ -7,6 +7,9 @@ class Container():
         aux = {key, value}
         self.__dict.update(aux)
 
+    def insert(self, data: dict):
+        self.__dict.update(data)
+
     def pop(self):
         return self.__dict.pop()
 
