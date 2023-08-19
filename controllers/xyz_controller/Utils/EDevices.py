@@ -7,4 +7,4 @@ class EDevices(Enum):
     Camera = "Camera"
     TEXT = "Text"
 
-    TimeExtraction = "TimeExtraction"
+    TimeSend = "TimeSend"
