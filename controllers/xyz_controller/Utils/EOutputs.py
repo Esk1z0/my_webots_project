@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class EActuators(Enum):
+class EOutputs(Enum):
     RARE_LEFT_MOTOR = "RARE_LEFT_MOTOR"
     RARE_RIGHT_MOTOR = "RARE_RIGHT_MOTOR"
     FRONT_LEFT_MOTOR = "FRONT_LEFT_MOTOR"

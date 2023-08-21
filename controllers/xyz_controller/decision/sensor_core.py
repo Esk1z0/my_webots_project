@@ -1,7 +1,7 @@
 from sensors.data_handler import DataHandler
 from utils.EDevices import EDevices
 
-class SensorReceiver():
+class SensorCore():
 
     def __init__(self, data_handler: DataHandler):
         self.__data_handler = data_handler
