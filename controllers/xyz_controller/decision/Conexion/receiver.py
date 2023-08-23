@@ -7,5 +7,5 @@ class Receiver:
         self.server_tcp = server_tcp
         self.server_udp = server_udp
 
-    def receive(self, data):
+    def receive(self):
         return {EData.DATA_RECEIVED : 1}
