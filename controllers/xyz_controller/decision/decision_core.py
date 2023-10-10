@@ -1,3 +1,4 @@
+from .Comander import Comander
 from .memory.memory import Memory
 from .Conexion.receiver import Receiver
 from utils.container import Container
@@ -6,7 +7,7 @@ from threading import Thread
 
 class DecisionCore():
 
-    def __init__(self, memory: Memory, comander, receiver: Receiver, actuatorCore, signaling, security):
+    def __init__(self, memory: Memory, comander: Comander, receiver: Receiver, actuatorCore, signaling, security):
         self.__mem = memory
         self.__comander = comander#falta
         self.__receiver = receiver
@@ -24,7 +25,7 @@ class DecisionCore():
             command = self.get_data()
             command = self.__mem.decode_command(command)
             self.__comander.set_command(command)
-            while (len(command) > 0 or False):#not signaling.endWhile
+            while (self.__comander.theresOrder() or False):#not signaling.endWhile
                 order = self.__comander.get_order()
                 self.__actuatorCore.order(order)
 

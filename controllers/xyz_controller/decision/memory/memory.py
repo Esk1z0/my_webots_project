@@ -12,8 +12,8 @@ class Memory():
         self.__command_decoder = MemoryDecoder(ReceivedCommands.COMMANDS)
         self.__other_decoder = MemoryDecoder(OtherCommands.COMMANDS)
 
-    def decode_command(self, command: dict):
-        key, value = command.popitem()
+    def decode_command(self, command: list):
+        key, value = command.pop(0)
         if EData.RECEIVEDED_DATA == key:
             return self.__security_decoder.decode(value)
         elif EData.SECURITY_DATA == key:
